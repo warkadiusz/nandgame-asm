@@ -8,7 +8,6 @@
 
 main:
   # Wait until stops moving then return to "main2"
-  D = main2
   A = wait
   JMP
 main2:  
@@ -35,8 +34,8 @@ turn_right:
   D = A
   A = 0x7fff
   *A = D
-  # Wait for the turn to finish and back to main2
-  A = wait_to_main
+  # Wait for the turn to finish and return to main2
+  A = wait
   JMP
 
 move:
@@ -45,8 +44,8 @@ move:
   D = A
   A = 0x7fff
   *A = D
-  # Wait for the move to finish and back to main2
-  A = wait_to_main
+  # Wait for the move to finish and return to main2
+  A = wait
   JMP
 
 wait:
@@ -55,22 +54,8 @@ wait:
   D = *A
   A = 0x600
   D = D & *A
-  # Set "return address"
+  # If not turning/moving, jump back to main2
   A = main2
-  # If not turning/moving, jump back to return address
   D ; JEQ
-  # Otherwise wait again
+  # Otherwise wait again (loop)
   A = wait
-
-wait_to_main:
-  # Check if turning or moving is in progress
-  A = 0x7fff
-  D = *A
-  A = 0x600
-  D = D & *A
-  # Set "return address"
-  A = main
-  # If not turning/moving, jump back to return address
-  D ; JEQ
-  # Otherwise wait again
-  A = wait_to_main
