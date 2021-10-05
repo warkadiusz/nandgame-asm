@@ -1,4 +1,3 @@
-# Return address in D register
 # Consts:
 #    - move forward:   0x04
 #    - turn left:      0x08
@@ -6,13 +5,13 @@
 #    - obstacle:       0x100
 #    - turning|moving: 0x200|0x400 = 0x600
 pre:
-  # Save "turn right" command at "obstacle" address, trick
+  # Save "turn right" command at "obstacle" (0x100) address
   A = 0x10
   D = A
   A = 0x100
   *A = D
 
-  # Save "move forward" command at 0x00 (nothing happening)
+  # Save "move forward" command at "no obstacle" (0x00) address
   A = 0x04
   D = A
   A = 0
@@ -38,10 +37,13 @@ main:
   D = *A
   A = 0x7fff
   *A = D
+  
+  # Reset input
   *A = 0
+  
+  # ... and wait for the turn/move to finish
   A = wait
   JMP
-
 
 wait:
   # Check if turning or moving is in progress
@@ -49,9 +51,11 @@ wait:
   D = *A
   A = 0x600
   D = D & A
+  
   # If not turning or moving, return to main
   A = main
   D ; JEQ
+  
   # Otherwise wait again (loop)
   A = wait
   JMP
