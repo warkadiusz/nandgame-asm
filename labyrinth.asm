@@ -1,3 +1,43 @@
+// Uncommented form:
+
+pre:
+  A = 0x10
+  D = A
+  A = 0x100
+  *A = D
+
+  A = 0x04
+  D = A
+  A = 0
+  *A = D
+
+main:
+  A = 0x100
+  D = A
+  A = 0x7fff
+  D = D & *A
+
+  A = D
+  D = *A
+  A = 0x7fff
+  *A = D
+  *A = 0
+  A = wait
+  JMP
+
+wait:
+  A = 0x7fff
+  D = *A
+  A = 0x600
+  D = D & A
+  A = main
+  D ; JEQ
+  A = wait
+  JMP
+
+
+
+// Commented form:
 # Consts:
 #    - move forward:   0x04
 #    - turn left:      0x08
