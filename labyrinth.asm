@@ -1,15 +1,13 @@
 // Uncommented form:
+A = 0x10
+D = A
+A = 0x100
+*A = D
 
-pre:
-  A = 0x10
-  D = A
-  A = 0x100
-  *A = D
-
-  A = 0x04
-  D = A
-  A = 0
-  *A = D
+A = 0x04
+D = A
+A = 0
+*A = D
 
 main:
   A = 0x100
@@ -44,18 +42,18 @@ wait:
 #    - turn right:     0x10
 #    - obstacle:       0x100
 #    - turning|moving: 0x200|0x400 = 0x600
-pre:
-  # Save "turn right" command at "obstacle" (0x100) address
-  A = 0x10
-  D = A
-  A = 0x100
-  *A = D
 
-  # Save "move forward" command at "no obstacle" (0x00) address
-  A = 0x04
-  D = A
-  A = 0
-  *A = D
+# Save "turn right" command at "obstacle" (0x100) address
+A = 0x10
+D = A
+A = 0x100
+*A = D
+
+# Save "move forward" command at "no obstacle" (0x00) address
+A = 0x04
+D = A
+A = 0
+*A = D
 
 main:
   # Has obstacle?
