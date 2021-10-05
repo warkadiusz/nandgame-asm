@@ -21,6 +21,9 @@ main2:
   A = 0x7fff
   D = D & *A
 
+  # Reset all move/turn commands
+  *A = 0
+
   # Set return address to "main"
   A = 0
   *A = main
@@ -39,39 +42,29 @@ turn_right:
   D = A
   A = 0x7fff
   *A = D
-  # Set return address to continue "turn right" command
-  A = turn_right_continue
+  # Set return address to main
+  A = main
   D = A
   A = 0
   *A = D
-  # Wait for the turn to finish
+  # Wait for the turn to finish and back to main2
   A = wait
   JMP
-turn_right_continue:
-  # Reset "turn right" command and return to main
-  A = 0x7fff
-  *A = 0
-  A = main
-  JMP
+
 
 move:
+  # Command to move forward
   A = 0x4
   D = A
   A = 0x7fff
   *A = D
-  # Set return address to continue "move" command
-  A = move_continue
+  # Set return address to main
+  A = main
   D = A
   A = 0
   *A = D
   # Wait for the move to finish
   A = wait
-  JMP
-move_continue:
-  # Reset "move forward" command and return to main
-  A = 0x7fff
-  *A = 0
-  A = main
   JMP
 
 wait:
