@@ -15,15 +15,9 @@ main:
   D = *A
   A = 0x7fff
   *A = D
-  A = wait
-  JMP
-
-wait:
   A = 0x600
   D = D & A
   A = main
-  D ; JEQ
-  A = wait
   JMP
 
 
@@ -62,19 +56,6 @@ main:
   A = 0x7fff
   *A = D
   
-  # ... and wait for the turn/move to finish
-  A = wait
-  JMP
-
-wait:
-  # Check if turning or moving is in progress
-  A = 0x600
-  D = D & A
-  
-  # If not turning or moving, return to main
+  # ... repeat
   A = main
-  D ; JEQ
-  
-  # Otherwise wait again (loop)
-  A = wait
   JMP
