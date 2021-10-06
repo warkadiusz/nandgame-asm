@@ -1,38 +1,30 @@
 // Uncommented form:
-A = 0x10
+A = 0x8
 D = A
 A = 0x100
 *A = D
 
-A = 0x04
+A = 0x4
 D = A
 A = 0
 *A = D
 
 main:
-  A = 0x100
-  D = A
   A = 0x7fff
-  D = D & *A
-
-  A = D
+  A = *A
   D = *A
   A = 0x7fff
   *A = D
-  *A = 0
   A = wait
   JMP
 
 wait:
-  A = 0x7fff
-  D = *A
   A = 0x600
   D = D & A
   A = main
   D ; JEQ
   A = wait
   JMP
-
 
 
 // Commented form:
@@ -56,12 +48,6 @@ A = 0
 *A = D
 
 main:
-  # Has obstacle?
-  A = 0x100
-  D = A
-  A = 0x7fff
-  D = D & *A
-
   # Do what is stored under address D
   # D can be:
   #   0x00  - if no obstacle
@@ -76,17 +62,12 @@ main:
   A = 0x7fff
   *A = D
   
-  # Reset input
-  *A = 0
-  
   # ... and wait for the turn/move to finish
   A = wait
   JMP
 
 wait:
   # Check if turning or moving is in progress
-  A = 0x7fff
-  D = *A
   A = 0x600
   D = D & A
   
