@@ -1,23 +1,18 @@
 // The commit history of this file shows different, shorter and shorter solutions.
-// Shortest working solution (13 instructions; works only for "Check solution" but not when run):
-main:
-  A = 0x7fff
-  D = *A
-  A = move
-  D ; JEQ
-  A = 8
-  D = A
-continue:
-  A = 0x7fff
-  *A = D
-  A = main
-  JMP
-move:
-  A = 4
-  D = A
-  A = continue
-  JMP
-  
+// Shortest working solution (11 instructions; works only for "Check solution" but not when run):
+A = 0x7fff
+*A = D
+D = *A
+A = 8
+D ; JEQ
+D = A
+A = 0
+JMP
+A = 4
+D = A
+A = 0
+JMP
+
   
 // Other, longer solution (14 instructions; works with "Run"):
 // Uncommented form:
