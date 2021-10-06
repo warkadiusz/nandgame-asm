@@ -1,5 +1,5 @@
 // The commit history of this file shows different, shorter and shorter solutions.
-// Shortest working solution (11 instructions; works only for "Check solution" but not when run):
+// Shortest working solution (10 instructions; works only for "Check solution" but not when run):
 A = 0x7fff
 *A = D
 D = *A
@@ -10,7 +10,6 @@ A = 0
 JMP
 A = 4
 D = A
-A = 0
 JMP
 
   
